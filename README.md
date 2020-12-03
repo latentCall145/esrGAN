@@ -1,6 +1,8 @@
 # esrGAN_vBearNinja123
 ## Overview <h2>
 My implementation of the srGAN (https://arxiv.org/pdf/1609.04802v5.pdf) and esrGAN (https://arxiv.org/pdf/1809.00219.pdf) papers, upscaling 32x32 px images into 128x128 px images. I ran the srGAN model using Keras on Google Colab and esrGAN on Kaggle for about 10 hours each on a dataset of turtle images I collected on Google Images (https://www.pyimagesearch.com/2017/12/04/how-to-create-a-deep-learning-dataset-using-google-images/).
+  
+  In the picture below, the images in the top, middle, and bottom row are the LR input images, 4x upscaled images, and HR (ground truth) images.
 ![32x32 LR Image, 128x128 SR Image, 128x128 Ground Truth](/results/32_128.png)
 
 ## Repo Files <h2>
