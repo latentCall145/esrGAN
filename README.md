@@ -6,7 +6,7 @@ My implementation of the srGAN (https://arxiv.org/pdf/1609.04802v5.pdf) and esrG
 ![32x32 LR Image, 128x128 SR Image, 128x128 Ground Truth](/results/32_128.png)
 
 ## Repo Files <h2>
-This repo contains a trained esrGAN model (one using dense blocks and one using RRDB blocks described in the esrGAN paper), a trained srGAN model, and a trained esrGAN model that is compatible for Tensorflow 2.2.0, the version that Anaconda currently supports (dense blocks). For fine-tuning your own model, there is an srGAN and esrGAN Jupyter notebook, and you input your low/high-res images in the /train directory.
+This repo contains a trained esrGAN model (one using dense blocks and one using RRDB blocks described in the esrGAN paper), a trained srGAN model, and a trained esrGAN model, with versions for TF 2.3.0 (default version in Google Colab/Kaggle) and TF 2.2.0 (latest release for Anaconda). For fine-tuning your own model, there is an srGAN and esrGAN Jupyter notebook, and you input your low/high-res images in the /train directory.
 
 I also made a script (superResTest.py) to upscale any image 4x if the dimensions of the image is divisible by 32 (e.g 128x128 -> 512x512, 32x64 -> 128x256)
 as well as compare the models with each other. I didn't try to hide any artifacts on the edges of the SR images so you'll see faint lines on the upscaled image if you use the script for yourself.\

@@ -3,15 +3,16 @@ import tensorflow as tf
 import numpy as np
 import os, cv2
 
+parentPath = 'models/tf_230' # change to tf_220 if your machine doesn't support TF 2.3.0
 # srGAN
-srGAN = tf.keras.models.load_model('srGAN/gen')
+srGAN = tf.keras.models.load_model(os.path.join(parentPath, 'srGAN/gen'))
 
 # esrGAN
 # no RRDB model - just dense blocks
-esrGAN = tf.keras.models.load_model('esrGAN_DB/gen')
+esrGAN = tf.keras.models.load_model(os.path.join(parentPath, 'esrGAN_DB/gen'))
 
 # RRDB model
-esrGAN_RRDB = tf.keras.models.load_model('esrGAN_RRDB/gen')
+esrGAN_RRDB = tf.keras.models.load_model(os.path.join(parentPath, 'esrGAN_RRDB/gen'))
 
 def bigPred(x, gen): # upscale non-32x32 images; x=np.array, gen=Keras model
   m, h, w, c = x.shape
