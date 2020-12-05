@@ -22,7 +22,7 @@ def bigPred(x, gen): # upscale non-32x32 images; x=np.array, gen=Keras model
 
 os.chdir('testImages')
 
-imageName = 'turtle.png'
+imageName = 'turtle128.png'
 img = cv2.imread(imageName) # BGR -> RGB, divide by 255 to normalize images
 img = img[:, :, ::-1] / 255
 img = np.expand_dims(img, 0)
