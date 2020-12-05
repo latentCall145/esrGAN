@@ -3,16 +3,14 @@ import tensorflow as tf
 import numpy as np
 import os, cv2
 
-parentPath = 'models/tf_230' # change to tf_220 if your machine doesn't support TF 2.3.0
-# srGAN
-srGAN = tf.keras.models.load_model(os.path.join(parentPath, 'srGAN/gen'))
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+parentPath = 'models/tf_220' # change to tf_230 if your machine doesn't support TF 2.2.0
 
-# esrGAN
-# no RRDB model - just dense blocks
-esrGAN = tf.keras.models.load_model(os.path.join(parentPath, 'esrGAN_DB/gen'))
-
-# RRDB model
-esrGAN_RRDB = tf.keras.models.load_model(os.path.join(parentPath, 'esrGAN_RRDB/gen'))
+nameGens = ['srGAN', 'esrGAN_DB', 'esrGAN_RRDB', 'esrGAN_RRDB_v2'] # RRDB v2 model only compatible for TF 2.2.0
+genList = []
+for i in nameGens:
+    genList.append(tf.keras.models.load_model(os.path.join(parentPath, i, 'gen')))
+numGens = len(genList)
 
 def bigPred(x, gen): # upscale non-32x32 images; x=np.array, gen=Keras model
   m, h, w, c = x.shape
@@ -24,27 +22,21 @@ def bigPred(x, gen): # upscale non-32x32 images; x=np.array, gen=Keras model
 
 os.chdir('testImages')
 
-imageName = 'turtle128.png'
+imageName = 'turtle.png'
 img = cv2.imread(imageName) # BGR -> RGB, divide by 255 to normalize images
 img = img[:, :, ::-1] / 255
 img = np.expand_dims(img, 0)
 
-y_sr = bigPred(img, srGAN)
-y_esr = bigPred(img, esrGAN)
-y_rrdb = bigPred(img, esrGAN_RRDB)
+ySR = []
+for i in genList:
+    ySR.append(bigPred(img, i))
 
-fig, axes = plt.subplots(nrows=2, ncols=3)
+fig, axes = plt.subplots(nrows=2, ncols=numGens)
 
-for i in range(3):
+for i in range(numGens):
   axes[0][i].imshow(img[0])
   axes[0][i].set_title('Source Image')
-
-axes[1][0].imshow(y_sr[0])
-axes[1][1].imshow(y_esr[0])
-axes[1][2].imshow(y_rrdb[0])
-
-axes[1][0].set_title('srGAN Super-Res')
-axes[1][1].set_title('esrGAN (Dense Block) Super-Res')
-axes[1][2].set_title('esrGAN (RRDB) Super-Res')
+  axes[1][i].imshow(ySR[i][0])
+  axes[1][i].set_title(nameGens[i])
 
 plt.show()
