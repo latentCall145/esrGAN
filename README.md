@@ -1,4 +1,4 @@
-# esrGAN_vBearNinja123
+# esrGAN
 ## Overview <h2>
 My implementation of the srGAN (https://arxiv.org/pdf/1609.04802v5.pdf) and esrGAN (https://arxiv.org/pdf/1809.00219.pdf) papers, upscaling 32x32 px images into 128x128 px images. I ran the srGAN model using Keras on Google Colab and esrGAN on Kaggle for about 10 hours each on a dataset of turtle images I collected on Google Images (https://www.pyimagesearch.com/2017/12/04/how-to-create-a-deep-learning-dataset-using-google-images/).
   
